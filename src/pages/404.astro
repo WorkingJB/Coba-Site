@@ -1,0 +1,22 @@
+---
+import Base from "../layouts/Base.astro";
+---
+
+<Base title="Page not found · Coba" description="This page doesn't exist.">
+  <section class="wrap nf">
+    <p class="eyebrow">404</p>
+    <h1>Lost contact</h1>
+    <p>There's nothing at this address. It may have moved, or the link is off.</p>
+    <div class="ctas">
+      <a href="/" class="btn btn-primary">Back to the front</a>
+      <a href="https://app.coba.games" class="btn btn-ghost">Play</a>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .nf { padding: 120px 20px 40px; }
+  h1 { font-size: clamp(2.2rem, 6vw, 3.4rem); margin: 12px 0 16px; text-transform: uppercase; }
+  .nf > p:not(.eyebrow) { color: var(--dim); }
+  .ctas { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 28px; }
+</style>

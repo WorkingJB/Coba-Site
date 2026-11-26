@@ -1,0 +1,97 @@
+/* Coba brand tokens, taken from the game client (apps/web/src/style.css in the
+   Coba repo): hull blues, cyan for your side, orange for the other side. The
+   site follows the system theme; dark is the game's native look. */
+:root {
+  --bg: #f4f7f9;
+  --panel: #ffffff;
+  --panel-2: #e9eff3;
+  --line: #d3dee6;
+  --line-bright: #9ab3c6;
+  --text: #0c1822;
+  --dim: #4f6576;
+  --ally: #0b7f95;
+  --enemy: #c4481c;
+  --warn: #a86b00;
+  --glow-a: #d6ecf6;
+  --glow-b: #f3e3dc;
+  --display: "Avenir Next Condensed", "Roboto Condensed", "Arial Narrow", "Helvetica Neue", system-ui, sans-serif;
+  --body: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --mono: ui-monospace, "SF Mono", "Cascadia Mono", Menlo, Consolas, monospace;
+  color-scheme: light dark;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #05090e;
+    --panel: #0b131b;
+    --panel-2: #101b26;
+    --line: #1c2b39;
+    --line-bright: #35546d;
+    --text: #d9e5ec;
+    --dim: #8aa0b0;
+    --ally: #58d2e8;
+    --enemy: #ff7c4b;
+    --warn: #ffc44d;
+    --glow-a: #12283a;
+    --glow-b: #1a1420;
+  }
+}
+
+* { box-sizing: border-box; }
+
+html { scroll-behavior: smooth; }
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+
+body {
+  margin: 0;
+  background:
+    radial-gradient(1200px 700px at 85% -10%, var(--glow-a) 0%, transparent 60%),
+    radial-gradient(900px 600px at -10% 110%, var(--glow-b) 0%, transparent 55%),
+    var(--bg);
+  background-attachment: fixed;
+  color: var(--text);
+  font: 17px/1.6 var(--body);
+  -webkit-font-smoothing: antialiased;
+}
+
+h1, h2, h3 {
+  font-family: var(--display);
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  line-height: 1.1;
+  margin: 0;
+}
+
+p { margin: 0; }
+
+a { color: inherit; }
+
+:focus-visible { outline: 2px solid var(--warn); outline-offset: 3px; }
+
+.wrap { max-width: 1080px; margin: 0 auto; padding: 0 20px; }
+
+.eyebrow {
+  font-family: var(--mono);
+  font-size: 0.78rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--dim);
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5em;
+  padding: 0.75em 1.4em;
+  border-radius: 6px;
+  font-family: var(--display);
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  text-decoration: none;
+  border: 1px solid var(--line-bright);
+  transition: border-color 0.15s, background 0.15s, color 0.15s;
+}
+.btn-primary { background: var(--ally); border-color: var(--ally); color: var(--bg); }
+.btn-primary:hover { filter: brightness(1.1); }
+.btn-ghost:hover { border-color: var(--ally); color: var(--ally); }

@@ -1,0 +1,130 @@
+---
+import "../styles/global.css";
+
+interface Props {
+  title?: string;
+  description?: string;
+}
+
+const PLAY_URL = "https://app.coba.games";
+const {
+  title = "Coba: Card Online Battle Arena",
+  description = "Coba is a tactical card battler where both sides plan at once and fight over three zones. Play a duel or 2v2, with friends or against bots.",
+} = Astro.props;
+const canonical = new URL(Astro.url.pathname, Astro.site);
+const ogImage = new URL("/og.png", Astro.site);
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <meta name="theme-color" content="#05090e" media="(prefers-color-scheme: dark)" />
+    <meta name="theme-color" content="#f4f7f9" media="(prefers-color-scheme: light)" />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Coba" />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content={ogImage} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={ogImage} />
+  </head>
+  <body>
+    <header class="site-header">
+      <div class="wrap bar">
+        <a href="/" class="brand" aria-label="Coba home">
+          <img src="/favicon.svg" alt="" width="28" height="28" />
+          <span>Coba</span>
+        </a>
+        <nav aria-label="Main">
+          <a href="/#how" class="navlink">How it plays</a>
+          <a href="/#status" class="navlink">Status</a>
+          <a href={PLAY_URL} class="btn btn-primary btn-sm">Play</a>
+        </nav>
+      </div>
+    </header>
+
+    <main>
+      <slot />
+    </main>
+
+    <footer class="site-footer">
+      <div class="wrap foot">
+        <p>
+          <a href="https://studiopalouse.com">A Studio Palouse project</a>
+        </p>
+        <p class="links">
+          <a href={PLAY_URL}>Play</a>
+          <a href="mailto:contact@palouse.io?subject=Coba%20playtest">Contact</a>
+        </p>
+        <p class="copy">© {new Date().getFullYear()} Studio Palouse</p>
+      </div>
+    </footer>
+  </body>
+</html>
+
+<style>
+  .site-header {
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    backdrop-filter: blur(12px);
+    background: color-mix(in srgb, var(--bg) 80%, transparent);
+    border-bottom: 1px solid var(--line);
+  }
+  .bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    height: 64px;
+  }
+  .brand {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    text-decoration: none;
+    font-family: var(--display);
+    font-weight: 700;
+    font-size: 1.35rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+  nav { display: flex; align-items: center; gap: 22px; }
+  .navlink {
+    text-decoration: none;
+    color: var(--dim);
+    font-size: 0.95rem;
+  }
+  .navlink:hover { color: var(--text); }
+  @media (max-width: 560px) { .navlink { display: none; } }
+  .btn-sm { padding: 0.5em 1.1em; font-size: 0.9rem; }
+
+  .site-footer {
+    border-top: 1px solid var(--line);
+    margin-top: 96px;
+    padding: 36px 0 48px;
+    color: var(--dim);
+    font-size: 0.92rem;
+  }
+  .foot {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+  }
+  .foot a { text-decoration: none; }
+  .foot a:hover { color: var(--ally); }
+  .links { display: flex; gap: 20px; }
+</style>

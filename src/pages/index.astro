@@ -1,0 +1,321 @@
+---
+import Base from "../layouts/Base.astro";
+
+const PLAY_URL = "https://app.coba.games";
+const PLAYTEST_MAIL =
+  "mailto:contact@palouse.io?subject=Coba%20playtest&body=I%27d%20like%20a%20Coba%20playtest%20key.";
+
+const zones = [
+  { name: "Station A", ally: 9, enemy: 4, state: "Yours" },
+  { name: "Station B", ally: 6, enemy: 6, state: "Contested" },
+  { name: "Station C", ally: 3, enemy: 8, state: "Theirs" },
+];
+
+const steps = [
+  {
+    title: "Plan in secret",
+    body: "Each turn you get energy equal to the turn number, up to six. Spend it on as many as three cards, each sent to its own zone, plus your commander's ability. Your teammate can see your plan. The other side can't.",
+  },
+  {
+    title: "Lock it in",
+    body: "Once everyone locks, or the 45 second timer runs out, the turn resolves. Nobody moves first. Every card from every player lands at the same time.",
+  },
+  {
+    title: "Watch it play out",
+    body: "Units deploy, boosts apply, strikes hit, and control is checked, step by step, so you can see exactly why a zone flipped.",
+  },
+  {
+    title: "Score the front",
+    body: "A team that leads a zone scores a point. Hold the lead three turns running and the zone is secured for two bonus points, then cleared for both sides. First to 16 wins.",
+  },
+];
+
+const features = [
+  {
+    title: "Simultaneous turns",
+    body: "No waiting on the other player. You are reading them while they read you.",
+  },
+  {
+    title: "Duel or 2v2",
+    body: "Play one on one, or team up. In 2v2 your presence stacks with your teammate's on the same three zones, so a reinforcement and an attack can land together.",
+  },
+  {
+    title: "Bots fill empty seats",
+    body: "Start a solo match against bots, or host a lobby and let bots take any seat your friends don't.",
+  },
+  {
+    title: "Six commanders",
+    body: "Each commander brings a fixed deck and a signature ability. Some hold ground, some tear it down, some flood every zone at once.",
+  },
+  {
+    title: "Reads inside the turn",
+    body: "Shields block removal. Ambushes punish a fresh deployment. Deploying beats a shield, a strike beats a deployment, a shield beats a strike.",
+  },
+  {
+    title: "Short matches",
+    body: "Twelve turns at most, and most games end on the score target before that.",
+  },
+];
+---
+
+<Base>
+  <section class="hero">
+    <div class="wrap hero-grid">
+      <div>
+        <p class="eyebrow">Card Online Battle Arena</p>
+        <h1>Plan at the same time.<br />Fight for three zones.</h1>
+        <p class="lede">
+          Coba is a tactical card battler set on a hard science fiction front.
+          Both sides plan their turn in secret, everything resolves at once, and
+          the team that holds the most ground wins.
+        </p>
+        <div class="ctas">
+          <a href={PLAY_URL} class="btn btn-primary">Play</a>
+          <a href={PLAYTEST_MAIL} class="btn btn-ghost">Join the playtest</a>
+        </div>
+        <p class="note">Private alpha. You'll need a playtest key to get in.</p>
+      </div>
+
+      <figure class="board" aria-label="Example of the three-zone front">
+        {
+          zones.map((z) => (
+            <div class="zone">
+              <div class="zone-head">
+                <span class="zone-name">{z.name}</span>
+                <span class:list={["zone-state", z.state.toLowerCase()]}>{z.state}</span>
+              </div>
+              <div class="bars">
+                <div class="bar-row">
+                  <span class="side ally-t">Your team</span>
+                  <span class="track"><span class="fill ally" style={`width:${z.ally * 9}%`} /></span>
+                  <span class="num">{z.ally}</span>
+                </div>
+                <div class="bar-row">
+                  <span class="side enemy-t">Other team</span>
+                  <span class="track"><span class="fill enemy" style={`width:${z.enemy * 9}%`} /></span>
+                  <span class="num">{z.enemy}</span>
+                </div>
+              </div>
+            </div>
+          ))
+        }
+        <figcaption>Presence in each zone. A strict lead scores; a tie scores nothing.</figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <section id="how" class="section">
+    <div class="wrap">
+      <p class="eyebrow">How a match works</p>
+      <h2>One turn, four steps</h2>
+      <ol class="steps">
+        {
+          steps.map((s, i) => (
+            <li>
+              <span class="step-num">0{i + 1}</span>
+              <h3>{s.title}</h3>
+              <p>{s.body}</p>
+            </li>
+          ))
+        }
+      </ol>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap">
+      <p class="eyebrow">What's in the game</p>
+      <h2>Built around reading the other side</h2>
+      <div class="features">
+        {
+          features.map((f) => (
+            <div class="feature">
+              <h3>{f.title}</h3>
+              <p>{f.body}</p>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap war">
+      <div>
+        <p class="eyebrow">Where it's headed</p>
+        <h2>From one match to a faction war</h2>
+      </div>
+      <div class="war-copy">
+        <p>
+          The plan is for every match to count toward something bigger. Players
+          will pick a faction for the season, and wins will push that faction's
+          line on a shared territory map, with contributions capped so no one
+          group can run away with it.
+        </p>
+        <p>
+          That part is designed but not built yet. Right now we're making sure
+          the match itself is worth playing again, because a war map only
+          matters if people want the next game.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section id="status" class="section">
+    <div class="wrap">
+      <div class="status">
+        <div>
+          <p class="eyebrow">Status</p>
+          <h2>Early, playable, and changing</h2>
+          <p>
+            Coba is in private alpha. The rules engine, matches against bots or
+            friends, private invite rooms and timed turns all work. Commander
+            names and numbers are placeholders and the roster isn't balanced
+            yet. Stations are still wireframes while the art comes together.
+          </p>
+          <p>
+            Accounts, matchmaking and the faction campaign come later. For now
+            your seat lives in a browser session, so play from the same browser
+            if you want to come back to a match.
+          </p>
+        </div>
+        <div class="status-cta">
+          <p>Want a playtest key? Send us a note and tell us how you like to play.</p>
+          <a href={PLAYTEST_MAIL} class="btn btn-primary">Request a key</a>
+          <a href={PLAY_URL} class="btn btn-ghost">I have a key</a>
+        </div>
+      </div>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .hero { padding: 72px 0 48px; }
+  .hero-grid {
+    display: grid;
+    gap: 48px;
+    align-items: center;
+  }
+  @media (min-width: 900px) {
+    .hero-grid { grid-template-columns: 1.1fr 1fr; padding-top: 32px; }
+  }
+  h1 {
+    font-size: clamp(2.4rem, 6vw, 4rem);
+    margin-top: 14px;
+    text-transform: uppercase;
+  }
+  .lede {
+    margin-top: 22px;
+    max-width: 34em;
+    font-size: 1.12rem;
+    color: var(--dim);
+  }
+  .ctas { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 30px; }
+  .note { margin-top: 14px; font-size: 0.88rem; color: var(--dim); }
+
+  .board {
+    margin: 0;
+    padding: 20px;
+    border: 1px solid var(--line-bright);
+    border-radius: 12px;
+    background: color-mix(in srgb, var(--panel) 85%, transparent);
+    display: grid;
+    gap: 14px;
+  }
+  .zone {
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    padding: 12px 14px;
+    background: var(--panel-2);
+  }
+  .zone-head {
+    display: flex;
+    justify-content: space-between;
+    font-family: var(--mono);
+    font-size: 0.78rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    margin-bottom: 10px;
+  }
+  .zone-state.yours { color: var(--ally); }
+  .zone-state.theirs { color: var(--enemy); }
+  .zone-state.contested { color: var(--warn); }
+  .bars { display: grid; gap: 6px; }
+  .bar-row {
+    display: grid;
+    grid-template-columns: 6.5em 1fr 2ch;
+    align-items: center;
+    gap: 10px;
+    font-size: 0.8rem;
+  }
+  .side { color: var(--dim); }
+  .track {
+    height: 8px;
+    border-radius: 4px;
+    background: var(--line);
+    overflow: hidden;
+  }
+  .fill { display: block; height: 100%; border-radius: 4px; }
+  .fill.ally { background: var(--ally); }
+  .fill.enemy { background: var(--enemy); }
+  .num { font-family: var(--mono); text-align: right; }
+  figcaption { font-size: 0.82rem; color: var(--dim); }
+
+  .section { padding: 64px 0; }
+  h2 { font-size: clamp(1.8rem, 4vw, 2.6rem); margin-top: 10px; }
+
+  .steps {
+    list-style: none;
+    padding: 0;
+    margin: 36px 0 0;
+    display: grid;
+    gap: 20px;
+  }
+  @media (min-width: 760px) { .steps { grid-template-columns: repeat(2, 1fr); } }
+  @media (min-width: 1000px) { .steps { grid-template-columns: repeat(4, 1fr); } }
+  .steps li {
+    border-top: 2px solid var(--ally);
+    padding-top: 16px;
+  }
+  .step-num { font-family: var(--mono); color: var(--ally); font-size: 0.85rem; }
+  .steps h3 { font-size: 1.3rem; margin: 6px 0 8px; }
+  .steps p, .feature p { color: var(--dim); font-size: 0.98rem; }
+
+  .features {
+    margin-top: 36px;
+    display: grid;
+    gap: 16px;
+  }
+  @media (min-width: 700px) { .features { grid-template-columns: repeat(2, 1fr); } }
+  @media (min-width: 1000px) { .features { grid-template-columns: repeat(3, 1fr); } }
+  .feature {
+    border: 1px solid var(--line);
+    border-radius: 10px;
+    padding: 20px;
+    background: color-mix(in srgb, var(--panel) 70%, transparent);
+  }
+  .feature h3 { font-size: 1.2rem; margin-bottom: 8px; }
+
+  .war { display: grid; gap: 24px; }
+  @media (min-width: 900px) { .war { grid-template-columns: 1fr 1.3fr; gap: 56px; } }
+  .war-copy { display: grid; gap: 16px; color: var(--dim); }
+
+  .status {
+    display: grid;
+    gap: 32px;
+    border: 1px solid var(--line-bright);
+    border-radius: 14px;
+    padding: 32px 24px;
+    background: color-mix(in srgb, var(--panel) 85%, transparent);
+  }
+  @media (min-width: 900px) { .status { grid-template-columns: 1.5fr 1fr; padding: 40px; } }
+  .status > div:first-child p { margin-top: 14px; color: var(--dim); }
+  .status-cta {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+    gap: 12px;
+  }
+  .status-cta p { color: var(--dim); }
+</style>
