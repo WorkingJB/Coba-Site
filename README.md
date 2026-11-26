@@ -1,6 +1,6 @@
 # Coba Site
 
-Marketing site for [Coba](https://www.coba.games) (Card Online Battle Arena), a Studio Palouse project. The game itself lives in [WorkingJB/Coba](https://github.com/WorkingJB/Coba) and is served at https://app.coba.games.
+Marketing site for [Coba](https://www.coba.games) (Card Online Battle Arena), a Studio Palouse project. The game itself lives in [WorkingJB/Coba](https://github.com/WorkingJB/Coba) and is served at https://play.coba.games.
 
 Built with [Astro](https://astro.build) as a fully static site (no client JavaScript) and hosted on Vercel. Colors and fonts come from the game client (`apps/web/src/style.css` in the Coba repo). It follows the system light or dark setting.
 
@@ -50,6 +50,6 @@ Vercel detects Astro automatically; no `vercel.json` is needed.
 | --- | --- | --- | --- |
 | `@` (coba.games) | A | Vercel's apex IP (shown in the Vercel domain settings) | Redirects to www in Vercel |
 | `www` | CNAME | the `*.vercel-dns-*.com` target Vercel shows | The marketing site |
-| `app` | A / CNAME | the game host (Fly) | Leave pointed at the game, not Vercel |
+| `play` | A / AAAA or CNAME | the game host (Fly app `coba-509`) | The game. Not Vercel |
 
-Today all three hosts point at the old Fly deployment. Move `@` and `www` to Vercel only once `app.coba.games` is serving the game, so players following old links still land somewhere that works.
+The game moved from `app.coba.games` to `play.coba.games`. Remove any leftover `app` records so the hostname can't be claimed by another Fly app.
